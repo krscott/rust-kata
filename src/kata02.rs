@@ -9,7 +9,7 @@ fn chop1(needle: i32, haystack: &[i32]) -> Option<usize> {
         return None;
     }
 
-    let mut low = 0;
+    let mut low = 1;
     let mut high = haystack.len();
 
     loop {
