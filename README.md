@@ -5,3 +5,21 @@
 CodeKata practice using Rust
 
 http://codekata.com/
+
+
+## Kata02 - Karate Chop
+Each day for five days, write a unique implementations of a binary search
+according to the [specification](http://codekata.com/kata/kata02-karate-chop/).
+Assume the array is a sorted list of unique integers.
+
+I decided to use `None` instead of `-1` to represent index-not-found so I could
+return `Option<usize>` instead of needing to convert the index to `isize`. This
+is also more idiomatic Rust.
+
+Days:
+1. `chop1()` - Imperative
+2. *TODO*
+3. *TODO*
+4. *TODO*
+5. *TODO*
+
