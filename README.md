@@ -17,8 +17,16 @@ return `Option<usize>` instead of needing to convert the index to `isize`. This
 is also more idiomatic Rust.
 
 Days:
-1. `chop1()` - Imperative
-2. *TODO*
+1. `chop1()` - Imperative.
+   Typical implementation--no issues.
+2. `chop2()` - Functional.
+   I learned that arrays can be pivoted with Python-like syntax.
+
+   First run: overflow error from wrong ranging.
+
+   Second run: Found I forgot to add pivot to output of recursive call, so function
+   would always return an index <= half-length. Easy fix.
+
 3. *TODO*
 4. *TODO*
 5. *TODO*

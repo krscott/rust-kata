@@ -3,7 +3,9 @@
 
 #![allow(unused)]
 
-/// Imperative binary search
+use std::cmp::Ordering;
+
+/// Imperative
 fn chop1(needle: i32, haystack: &[i32]) -> Option<usize> {
     if haystack.len() == 0 {
         return None;
@@ -17,9 +19,9 @@ fn chop1(needle: i32, haystack: &[i32]) -> Option<usize> {
         let value = haystack[pivot];
 
         let (new_low, new_high) = match needle.cmp(&value) {
-            std::cmp::Ordering::Less => (low, pivot),
-            std::cmp::Ordering::Greater => (pivot, high),
-            std::cmp::Ordering::Equal => return Some(pivot),
+            Ordering::Less => (low, pivot),
+            Ordering::Equal => return Some(pivot),
+            Ordering::Greater => (pivot, high),
         };
 
         if new_low == low && new_high == high {
@@ -31,6 +33,22 @@ fn chop1(needle: i32, haystack: &[i32]) -> Option<usize> {
     }
 }
 
+/// Functional
+fn chop2(needle: i32, haystack: &[i32]) -> Option<usize> {
+    if haystack.len() == 0 {
+        return None;
+    }
+
+    let pivot = haystack.len() / 2;
+    let value = haystack[pivot];
+
+    match needle.cmp(&value) {
+        Ordering::Less => chop2(needle, &haystack[..pivot]),
+        Ordering::Equal => Some(pivot),
+        Ordering::Greater => chop2(needle, &haystack[pivot + 1..]).map(|i| i + pivot + 1),
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -38,6 +56,11 @@ mod tests {
     #[test]
     fn test_chop1() {
         test_generic_chop(chop1);
+    }
+
+    #[test]
+    fn test_chop2() {
+        test_generic_chop(chop2);
     }
 
     fn test_generic_chop<F>(chop: F)
