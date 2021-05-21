@@ -49,6 +49,35 @@ fn chop2(needle: i32, haystack: &[i32]) -> Option<usize> {
     }
 }
 
+/// Recursive Imperative
+fn chop3(needle: i32, haystack: &[i32]) -> Option<usize> {
+    fn chop3_rec(needle: i32, haystack: &[i32], first: usize, last: usize) -> Option<usize> {
+        if last < first {
+            return None;
+        }
+
+        let pivot = (last - first) / 2 + first;
+
+        match needle.cmp(&haystack[pivot]) {
+            Ordering::Less => {
+                if pivot > 0 {
+                    chop3_rec(needle, haystack, first, pivot - 1)
+                } else {
+                    None
+                }
+            }
+            Ordering::Equal => Some(pivot),
+            Ordering::Greater => chop3_rec(needle, haystack, pivot + 1, last),
+        }
+    }
+
+    if haystack.len() == 0 {
+        return None;
+    }
+
+    chop3_rec(needle, haystack, 0, haystack.len() - 1)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -61,6 +90,11 @@ mod tests {
     #[test]
     fn test_chop2() {
         test_generic_chop(chop2);
+    }
+
+    #[test]
+    fn test_chop3() {
+        test_generic_chop(chop3);
     }
 
     fn test_generic_chop<F>(chop: F)
