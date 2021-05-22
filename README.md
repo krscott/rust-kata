@@ -9,12 +9,12 @@ http://codekata.com/
 
 ## Kata02 - Karate Chop
 Each day for five days, write a unique implementations of a binary search
-according to the [specification](http://codekata.com/kata/kata02-karate-chop/).
+according to the [specification].
 Assume the array is a sorted list of unique integers.
 
 I decided to use `None` instead of `-1` to represent index-not-found so I could
 return `Option<usize>` instead of needing to convert the index to `isize`. This
-is also more idiomatic Rust.
+is also more idiomatic Rust. Converting back to original spec is trivial.
 
 Days:
 1. `chop1()` - Imperative.
@@ -41,5 +41,12 @@ Days:
 4. `chop4()` - Imperative Mutable slice.
    An imperative implementation of `chop2`. No issues.
 
-5. *TODO*
+5. `chop5()` - Declarative.
+   An implementation using Rust iterators.
 
+   I looked up the [slice docs] and found `chunks()` and tried to find a way to use it. It worked
+   out well, though it is a little hard to read.
+
+
+[specification]: http://codekata.com/kata/kata02-karate-chop/
+[slice docs]: https://doc.rust-lang.org/std/primitive.slice.html

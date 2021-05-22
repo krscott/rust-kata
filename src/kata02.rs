@@ -100,6 +100,21 @@ fn chop4(needle: i32, mut haystack: &[i32]) -> Option<usize> {
     }
 }
 
+/// Declarative
+fn chop5(needle: i32, haystack: &[i32]) -> Option<usize> {
+    match (haystack.first(), haystack.last()) {
+        (Some(first), _) if needle == *first => Some(0),
+
+        (Some(first), Some(last)) if needle > *first && needle <= *last => haystack
+            .chunks(haystack.len() / 2)
+            .enumerate()
+            .filter_map(|(i, a)| chop5(needle, a).map(|index| index + i * (haystack.len() / 2)))
+            .next(),
+
+        _ => None,
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -122,6 +137,11 @@ mod tests {
     #[test]
     fn test_chop4() {
         test_generic_chop(chop4);
+    }
+
+    #[test]
+    fn test_chop5() {
+        test_generic_chop(chop5);
     }
 
     fn test_generic_chop<F>(chop: F)
