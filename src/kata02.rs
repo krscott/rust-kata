@@ -5,6 +5,11 @@
 
 use std::cmp::Ordering;
 
+/// Library
+fn chop_lib(needle: i32, haystack: &[i32]) -> Option<usize> {
+    haystack.binary_search(&needle).ok()
+}
+
 /// Imperative
 fn chop1(needle: i32, haystack: &[i32]) -> Option<usize> {
     if haystack.len() == 0 {
@@ -118,6 +123,11 @@ fn chop5(needle: i32, haystack: &[i32]) -> Option<usize> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn test_chop_lib() {
+        test_generic_chop(chop_lib);
+    }
 
     #[test]
     fn test_chop1() {
