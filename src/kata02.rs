@@ -78,6 +78,28 @@ fn chop3(needle: i32, haystack: &[i32]) -> Option<usize> {
     chop3_rec(needle, haystack, 0, haystack.len() - 1)
 }
 
+/// Imperative mutable slice
+fn chop4(needle: i32, mut haystack: &[i32]) -> Option<usize> {
+    let mut acc = 0;
+    loop {
+        println!("{:?}", haystack);
+        match haystack.len() {
+            0 => return None,
+            len => {
+                let pivot = len / 2;
+                match needle.cmp(&haystack[pivot]) {
+                    Ordering::Less => haystack = &haystack[..pivot],
+                    Ordering::Equal => return Some(pivot + acc),
+                    Ordering::Greater => {
+                        acc += pivot + 1;
+                        haystack = &haystack[pivot + 1..];
+                    }
+                }
+            }
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -95,6 +117,11 @@ mod tests {
     #[test]
     fn test_chop3() {
         test_generic_chop(chop3);
+    }
+
+    #[test]
+    fn test_chop4() {
+        test_generic_chop(chop4);
     }
 
     fn test_generic_chop<F>(chop: F)

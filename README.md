@@ -18,7 +18,8 @@ is also more idiomatic Rust.
 
 Days:
 1. `chop1()` - Imperative.
-   Typical implementation--no issues.
+   Typical implementation. No issues.
+
 2. `chop2()` - Functional.
    Functional-style implementation which operates on array sub-slices.
 
@@ -37,6 +38,8 @@ Days:
    silently and would have been harder to track down. Clearly, Rust is trying to nudge me away from
    this kind of implementation.
 
-4. *TODO*
+4. `chop4()` - Imperative Mutable slice.
+   An imperative implementation of `chop2`. No issues.
+
 5. *TODO*
 
